@@ -3,7 +3,7 @@ Grapple Dog (Released February 10, 2022)
 ASL originally by Slask with overhauals by CptBrian
 */
 
-state("Grapple Dog", "Unknown Game Version"){ //Copy of addresses from whichever the most common or latest version is (Steam 1.0)
+state("Grapple Dog", "Unknown, Trying Latest"){ //Copy of addresses from whichever the most common or latest version is (Steam 1.0)
 	int Play : 0x4CCD54, 0x2C, 0x50, 0x3C, 0x20, 0x64, 0x4;
 	int Cont : 0x43DE48, 0xC98, 0xC, 0x144, 0x24, 0x10, 0x204, 0x4;
 }
@@ -40,7 +40,7 @@ init{
 
 	if(MD5Hash == "CB1A728B742A5433A630720FCC34A3E9") version = "Steam 1.0";
 	else if(MD5Hash == "PatchPrep") version = "Steam 1.1";
-	else version = "Unknown Game Version";
+	else version = "Unknown, Trying Latest";
 }
 
 update{
