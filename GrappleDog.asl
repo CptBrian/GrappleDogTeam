@@ -6,10 +6,14 @@ ASL originally by Slask with overhauals by CptBrian
 state("Grapple Dog", "Unknown, Trying Latest"){ //Copy of addresses from whichever the most common or latest version is (Steam 1.0)
 	int Play : 0x4CCD54, 0x2C, 0x50, 0x3C, 0x20, 0x64, 0x4;
 	int Cont : 0x43DE48, 0xC98, 0xC, 0x144, 0x24, 0x10, 0x204, 0x4;
+	double Health : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x84, 0xD0;
+	double Stage : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x150, 0x1A0;
 }
-state("Grapple Dog", "Steam 1.0"){ //Process Name
+state("Grapple Dog", "Steam 1.0.1"){ //Process Name
 	int Play : 0x4CCD54, 0x2C, 0x50, 0x3C, 0x20, 0x64, 0x4; //Set upon entering stages 1-1, 1-2, 1-3, 1-5, that's weird
 	int Cont : 0x43DE48, 0xC98, 0xC, 0x144, 0x24, 0x10, 0x204, 0x4; //The continue button appearing
+	double Health : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x84, 0xD0; //Potentially useful in some circumstances
+	double Stage : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x150, 0x1A0; //ID doesn't change when exiting a level to the overworld
 }
 
 startup{
@@ -27,7 +31,7 @@ startup{
 }
 
 init{
-	print("ModuleMemorySize: " + modules.First().ModuleMemorySize.ToString()); //Lets DebugView show me the ModuleMemorySize of the game executable (Backup to MD5)
+	print("ModuleMemorySize: " + modules.First().ModuleMemorySize.ToString()); //Lets DebugView show me the ModuleMemorySize of the game executable (Backup for MD5)
 
 	byte[] exeMD5HashBytes = new byte[0];
 	using(var md5 = System.Security.Cryptography.MD5.Create()){
@@ -38,7 +42,7 @@ init{
 	var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
 	print("Game's MD5Hash: " + MD5Hash.ToString()); //Lets DebugView show me the MD5Hash of the game executable
 
-	if(MD5Hash == "CB1A728B742A5433A630720FCC34A3E9") version = "Steam 1.0";
+	if(MD5Hash == "CB1A728B742A5433A630720FCC34A3E9") version = "Steam 1.0.1";
 	else if(MD5Hash == "PatchPrep") version = "Steam 1.1";
 	else version = "Unknown, Trying Latest";
 }
