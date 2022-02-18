@@ -72,7 +72,7 @@ split{
 	if(settings["ContinueSplit"] && old.Continue != 0x3FF00000 && current.Continue == 0x3FF00000){
 		return true; //Split every time Continue appears
 	}
-	else if(settings["BellSplit"] && old.Bell != 0 && current.Bell > 0 && current.Bell < 5){
+	else if(settings["BellSplit"] && old.Bell == 0 && current.Bell > 0 && current.Bell < 5){
 		return true;
 	}
 	else{
