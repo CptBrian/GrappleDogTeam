@@ -25,10 +25,10 @@ state("Grapple Dog", "Steam 1.0.1"){ //Process Name
 }
 
 startup{
-	vars.ASLVersion = "ASL Version 1.8 - Feb 22, 2022";
+	vars.ASLVersion = "ASL Version 1.9 - Feb 27, 2022";
 	vars.StartOptions = "Auto-Start Options";
 	vars.SplitOptions = "Auto-Split Options";
-	vars.LoadRemoval = "Load Removal (compare against GAME time to see)";
+	vars.LoadRemoval = "Load (Transition) Removal (compare against GAME time to see)";
 	vars.LoadTester = "Test Loading durations (auto-negates other settings)";
 	
 	settings.Add(vars.ASLVersion, false);
@@ -68,10 +68,10 @@ update{
 }
 
 isLoading{ //Make sure to compare against GAME time in LiveSplit, or this won't work!
-	if(settings[vars.LoadRemoval] && current.LoadFreeze == 1 && !settings[vars.LoadTester]){
+	if(settings[vars.LoadRemoval] && current.Transition == 1 && !settings[vars.LoadTester]){
 		return true; //Pause timer when loading
 	}
-	else if(settings[vars.LoadTester] && current.LoadFreeze == 0){
+	else if(settings[vars.LoadTester] && current.Transition == 0){
 		return true; //Pause timer when NOT loading, to test the duration of loads
 	}
 	else{
@@ -86,7 +86,7 @@ start{
 	else if(settings["ILMode"] && old.Control == 0 && current.Control == 1 && !settings[vars.LoadTester]){
 		return true;
 	}
-	else if(settings[vars.LoadTester] && old.LoadFreeze == 0 && current.LoadFreeze == 1){
+	else if(settings[vars.LoadTester] && old.Transition == 0 && current.Transition == 1){
 		return true; //Start timer upon an initiated load to test load duration (I know these are *currently* the same, but keep them separate)
 	}
 	else{
