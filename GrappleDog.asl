@@ -1,6 +1,6 @@
 /*
 Grapple Dog (Released February 10, 2022)
-ASL originally by Slask with overhauals by CptBrian
+ASL originally by Slask with overhauals by CptBrian, load fix by Snuggles
 */
 
 state("Grapple Dog", "Unknown, Trying Latest"){ //Copy of addresses from whichever the most common or latest version is (Steam 1.0.1)
@@ -68,7 +68,7 @@ update{
 }
 
 isLoading{ //Make sure to compare against GAME time in LiveSplit, or this won't work!
-	if(settings[vars.LoadRemoval] && current.Transition == 1 && !settings[vars.LoadTester]){
+	if(settings[vars.LoadRemoval] && current.LoadFreeze == 1 && !settings[vars.LoadTester] && current.Transition == 1){
 		return true; //Pause timer when loading
 	}
 	else if(settings[vars.LoadTester] && current.Transition == 0){
