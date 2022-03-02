@@ -17,7 +17,7 @@ state("Grapple Dog", "Steam 1.0.1"){ //Process Name
 	int Continue : 0x43DE48, 0xC98, 0xC, 0x144, 0x24, 0x10, 0x204, 0x4; //The continue button appearing
 	int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4; //if this one isn't stable, change it to 0x6EF220, 0x128, 0xEC4, 0x20, 0x24, 0x10, 0x594, 0x4;
 	double Health : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x84, 0xD0; //Potentially useful in some circumstances
-	double Control : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x84, 0xA0; //IL Start timing won't work when restarting stage (must exit), but apparently a better address doesn't fucking exist
+	double Control : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x84, 0xA0; //IL Start timing won't work when restarting stage (must exit), but apparently a better address doesn't exist >:(
 	double Stage : "Grapple Dog.exe", 0x6FCF38, 0x30, 0x150, 0x1A0; //ID doesn't change when exiting a level to the overworld
 	byte Transition : "Grapple Dog.exe", 0x4DCCEC, 0x0, 0xAF0, 0xC, 0x40; //White screen transitions/loads
 	byte LoadFreeze : "Grapple Dog.exe", 0x4DCCEC, 0x0, 0x4DC, 0xC, 0x40; //Likely true loads, when loads/transitions freeze
@@ -25,7 +25,7 @@ state("Grapple Dog", "Steam 1.0.1"){ //Process Name
 }
 
 startup{
-	vars.ASLVersion = "ASL Version 1.9 - Feb 27, 2022";
+	vars.ASLVersion = "ASL Version 2.0 - Mar 1, 2022";
 	vars.StartOptions = "Auto-Start Options";
 	vars.SplitOptions = "Auto-Split Options";
 	vars.LoadRemoval = "Load (Transition) Removal (compare against GAME time to see)";
@@ -84,7 +84,7 @@ start{
 		return true; //Start timer upon any initiated transitions (Play Stage)
 	}
 	else if(settings["ILMode"] && old.Control == 0 && current.Control == 1 && !settings[vars.LoadTester]){
-		return true;
+		return true; //Start timer upon gaining control (currently global control instead of specifically player control, which doesn't appear to exist...)
 	}
 	else if(settings[vars.LoadTester] && old.Transition == 0 && current.Transition == 1){
 		return true; //Start timer upon an initiated load to test load duration (I know these are *currently* the same, but keep them separate)
