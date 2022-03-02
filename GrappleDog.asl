@@ -28,7 +28,7 @@ startup{
 	vars.ASLVersion = "ASL Version 2.0 - Mar 1, 2022";
 	vars.StartOptions = "Auto-Start Options";
 	vars.SplitOptions = "Auto-Split Options";
-	vars.LoadRemoval = "Load (Transition) Removal (compare against GAME time to see)";
+	vars.LoadRemoval = "Load Removal v3 (compare against GAME time to see)";
 	vars.LoadTester = "Test Loading durations (auto-negates other settings)";
 	
 	settings.Add(vars.ASLVersion, false);
