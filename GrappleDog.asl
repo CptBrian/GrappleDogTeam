@@ -8,8 +8,8 @@ Pointers utilizing "Grapple Dog.exe" in the base address don't need to specify t
 */
 
 state("Grapple Dog", "Unknown, Trying Latest"){ //Copy of addresses from whichever the most common or latest version is (Steam 1.1.0)
-		int Continue : 0x43DE48, 0xC90, 0xC, 0x24, 0x10, 0x204, 0x4;
-		int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4;
+	//int Continue : 0x43DE48, 0xC90, 0xC, 0x24, 0x10, 0x204, 0x4;
+	//int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4;
 	double Health : 0x6FCF38, 0x30, 0xA50, 0xD0;
 	double Control : 0x6FCF38, 0x30, 0xA50, 0xA0;
 	double Stage : 0x6FCF38, 0x30, 0x24, 0x170;
@@ -17,7 +17,7 @@ state("Grapple Dog", "Unknown, Trying Latest"){ //Copy of addresses from whichev
 	byte LoadFreeze : 0x4DCCEC, 0x0, 0x51C, 0xC, 0x40;
 	byte Bell : 0x4DCCEC, 0x0, 0x9D0, 0xC, 0x40;
 }
-state("Grapple Dog", "Steam 1.0.1"){ //Process Name
+state("Grapple Dog", "Steam 1.0.1"){ //Process Name, then custom version identifer
 	int Continue : 0x43DE48, 0xC90, 0xC, 0x24, 0x10, 0x204, 0x4; //The continue button appearing on result screens
 	int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4; //if this one isn't stable, change it to 0x6EF220, 0x128, 0xEC4, 0x20, 0x24, 0x10, 0x594, 0x4;
 	double Health : 0x6FCF38, 0x30, 0x84, 0xD0; //Potentially useful in some circumstances
@@ -28,8 +28,8 @@ state("Grapple Dog", "Steam 1.0.1"){ //Process Name
 	byte Bell : 0x4DCCEC, 0x0, 0x990, 0xC, 0x40; //Bell Rings (counts up with each hit, resets at results)
 }
 state("Grapple Dog", "Steam 1.1.0"){
-		int Continue : 0x43DE48, 0xC90, 0xC, 0x24, 0x10, 0x204, 0x4; //Broken. Should have same base address and similar offsets
-		int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4; //Broken. Should have same base address and similar offsets
+	//int Continue : 0x43DE48, 0xC90, 0xC, 0x24, 0x10, 0x204, 0x4; //Broken. Should have same base address and similar offsets
+	//int RexCannon : 0x43DE48, 0xAD0, 0xC, 0x24, 0x10, 0x594, 0x4; //Broken. Should have same base address and similar offsets
 	double Health : 0x6FCF38, 0x30, 0xA50, 0xD0;
 	double Control : 0x6FCF38, 0x30, 0xA50, 0xA0;
 	double Stage : 0x6FCF38, 0x30, 0x24, 0x170;
@@ -39,7 +39,7 @@ state("Grapple Dog", "Steam 1.1.0"){
 }
 
 startup{
-	vars.ASLVersion = "ASL Version 2.3 — March 9, 2022";
+	vars.ASLVersion = "ASL Version 2.4 — March 9, 2022";
 	vars.StartOptions = "Auto-Start Options";
 	vars.SplitOptions = "Auto-Split Options";
 	vars.LoadRemoval = "Load Removal v3 (compare against GAME time to see)";
@@ -70,8 +70,9 @@ init{
 	var MD5Hash = exeMD5HashBytes.Select(x => x.ToString("X2")).Aggregate((a, b) => a + b);
 	print("Game's MD5Hash: " + MD5Hash.ToString()); //Lets DebugView show me the MD5Hash of the game's data.win file, because the executable isn't reliable for version identification
 
-	if(MD5Hash == "90EA2CAF7DEFFF1E16940FCF4470C725") version = "Steam 1.0.1";
-	else if(MD5Hash == "2A4B93B92F9CCFF20D39ADEF13C3A78C") version = "Steam 1.1.0";
+	if(MD5Hash == "90EA2CAF7DEFFF1E16940FCF4470C725") version = "Steam 1.0.1"; //February 10, 2022
+	else if(MD5Hash == "2A4B93B92F9CCFF20D39ADEF13C3A78C") version = "Steam 1.1.0"; //March 8, 2022 — https://steamcommunity.com/games/1345860/announcements/detail/3136199159381144091
+	else if(MD5Hash == "AD367D6E3E75070E4FBF460BCB6B984F") version = "Steam 1.1.0"; //March 9, 2022 — Minor update from 1.1.0, but version number didn't change, and pointers are the same. No patch notes.
 	else version = "Unknown, Trying Latest";
 }
 
